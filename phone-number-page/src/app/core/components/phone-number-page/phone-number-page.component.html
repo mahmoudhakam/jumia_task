@@ -1,0 +1,60 @@
+<!-- Filters -->
+<mat-form-field>
+  <mat-label>Countries</mat-label>
+  <mat-select [(value)]="requestParameters.countries" multiple>
+    <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>States</mat-label>
+  <mat-select [(value)]="requestParameters.state">
+    <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Actions btns -->
+<button [disabled]="!requestParameters?.state && requestParameters?.countries?.length === 0"
+  (click)="listPhoneNumbers()" class="btn" mat-raised-button color="primary">Apply</button>
+<button [disabled]="!requestParameters?.state && requestParameters.countries.length === 0" (click)="onResetFilters()"
+  class="btn" mat-raised-button color="primary">Clear</button>
+
+<!-- Data table  -->
+<div class="mat-elevation-z8 data-wrapper">
+  <table *ngIf="dataSource?.data?.length" mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="customername">
+      <th mat-header-cell *matHeaderCellDef>Customer name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="countryname">
+      <th mat-header-cell *matHeaderCellDef>Country name</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.country == null ? "--" : element.country.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="countrycode">
+      <th mat-header-cell *matHeaderCellDef>Country code</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.country == null ? "--" : element.country.code }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator *ngIf="dataSource?.data?.length" (page)="paging($event?.pageIndex)" showFirstLastButtons [pageSize]="10"
+    [length]="phoneNumberResponse?.totalItems"></mat-paginator>
+  <h5 *ngIf="!dataSource?.data?.length">No Data Found!</h5>
+</div>

@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: local
+  jpa:
+    properties:
+      hibernate:
+        dialect: com.jumia.phonenumbers.configurations.SQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: com.jumia.phonenumbers.configurations.SQLDialect
+  datasource:
+    url: jdbc:sqlite:sample.db
+    username: jumia
+    password: jumia
+    driver-class-name: org.sqlite.JDBC

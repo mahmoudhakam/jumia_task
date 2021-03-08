@@ -1,0 +1,27 @@
+.data-wrapper {
+  min-height: 100vh;
+  text-align: center;
+}
+
+.data-wrapper h5 {
+  padding-top: 50px;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+mat-form-field {
+  margin: 10px 30px;
+}
+.btn {
+  margin: 0 5px;
+}
